@@ -1,5 +1,5 @@
 import { IsBoolean, IsNumber, IsString } from "class-validator";
-import { IKsMember } from "src/interface/ks-member.if";
+import { IKsMember } from "../../interface/ks-member.if";
 
 export class CreateKsMemberDto implements Partial<IKsMember> {
     @IsString()

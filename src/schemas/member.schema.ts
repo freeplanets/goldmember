@@ -3,7 +3,7 @@ import { IMember } from "../interface/member.if";
 import { Document } from "mongoose";
 import { DS_LEVEL, GENDER, MEMBER_LEVEL } from "../utils/enum";
 import { ModifiedByData } from "../common/modified-by.data";
-import { IModifiedBy } from "src/interface/modifyed-by.if";
+import { IModifiedBy } from "../interface/modifyed-by.if";
 
 export type MemberDcoument = Document & Member;
 

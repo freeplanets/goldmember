@@ -1,4 +1,4 @@
-import { MEMBER_EXTEND_GROUP, MEMBER_GROUP } from "src/utils/enum";
+import { MEMBER_EXTEND_GROUP, MEMBER_GROUP } from "../utils/enum";
 import { ErrCode } from "../utils/enumError";
 
 export interface ICommonResponse<T> {

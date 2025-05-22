@@ -1,9 +1,8 @@
 import { Body, Controller, Delete, Get, Headers, HttpCode, HttpException, HttpStatus, Param, Post } from "@nestjs/common";
 import { KsService } from "./ks.service";
 import { ImportKsMemberDto } from "../dto/import_ks_member.dto";
-import { ApiHeader, ApiParam } from "@nestjs/swagger";
+import { ApiExcludeEndpoint, ApiHeader, ApiParam } from "@nestjs/swagger";
 import EncDecString from "../../function/EncDecString";
-import { json } from "stream/consumers";
 
 @Controller('ks')
 export class KsController {
@@ -29,7 +28,9 @@ export class KsController {
         }
 
     }
+
     @Get('list/:opt')
+    @ApiExcludeEndpoint(true)
     @ApiParam({name: 'opt', description: '查詢選項'})
     @ApiHeader({name: 'X-Api-Key', description: 'Api key'})
     getAll(@Headers('X-Api-Key') apiKey:string, @Param('opt') opt:string) {
@@ -44,8 +45,9 @@ export class KsController {
     }
 
     @Get('find/:id')
-    @ApiParam({name: 'id', description: '資料主鍵'})
-    @ApiHeader({name: 'X-Api-Key', description: 'Api key'})
+    @ApiExcludeEndpoint(true)
+    // @ApiParam({name: 'id', description: '資料主鍵'})
+    // @ApiHeader({name: 'X-Api-Key', description: 'Api key'})
     async getOne(@Headers('X-Api-Key') apiKey:string, @Param('id') id:string) {
         const eds:EncDecString = new EncDecString(process.env.KS_API_KEY);
         const { siteid } = JSON.parse(eds.Decrypted(apiKey));
@@ -59,8 +61,9 @@ export class KsController {
     }
 
     @Delete('delData/:id')
-    @ApiParam({name: 'id', description: '資料主鍵'}) 
-    @ApiHeader({name: 'X-Api-Key', description: 'Api key'})
+    @ApiExcludeEndpoint(true)
+    // @ApiParam({name: 'id', description: '資料主鍵'}) 
+    // @ApiHeader({name: 'X-Api-Key', description: 'Api key'})
     delAll(@Headers('X-Api-Key') apiKey:string, @Param('id') id:string) {
         const eds:EncDecString = new EncDecString(process.env.KS_API_KEY);
         const { siteid } = JSON.parse(eds.Decrypted(apiKey));
@@ -71,8 +74,9 @@ export class KsController {
         }
     }
     @Get('log/:count')
-    @ApiParam({name: 'count', description:"傳送筆數大於等於count"})
-    @ApiHeader({name: 'X-Api-Key', description: 'Api key'})
+    @ApiExcludeEndpoint(true)
+    //@ApiParam({name: 'count', description:"傳送筆數大於等於count"})
+    //@ApiHeader({name: 'X-Api-Key', description: 'Api key'})
     getLog(@Headers('X-Api-Key') apiKey:string, @Param('count') count:string) {
         const eds:EncDecString = new EncDecString(process.env.KS_API_KEY);
         const { siteid } = JSON.parse(eds.Decrypted(apiKey));
@@ -83,8 +87,9 @@ export class KsController {
         }
     }
     @Delete('delLog/:id')
-    @ApiParam({name: 'id', description: '資料主鍵'}) 
-    @ApiHeader({name: 'X-Api-Key', description: 'Api key'})
+    @ApiExcludeEndpoint(true)
+    // @ApiParam({name: 'id', description: '資料主鍵'}) 
+    // @ApiHeader({name: 'X-Api-Key', description: 'Api key'})
     delLog(@Headers('X-Api-Key') apiKey:string, @Param('id') id:string) {
         const eds:EncDecString = new EncDecString(process.env.KS_API_KEY);
         const { siteid } = JSON.parse(eds.Decrypted(apiKey));

@@ -1,6 +1,6 @@
 import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
 import { Document } from "mongoose";
-import { IKsMember } from "src/interface/ks-member.if";
+import { IKsMember } from "../interface/ks-member.if";
 
 export type KsMemberDocument = Document & KsMember;
 

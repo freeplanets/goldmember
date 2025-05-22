@@ -12,12 +12,18 @@ export class ModifiedByData implements IModifiedBy {
   modifiedBy?: string;
 
   @ApiProperty({
+    description: '修改人員姓名',
+    required: false,
+  })
+  modifiedByWho?: string;
+
+  @ApiProperty({
     description: '修改時間',
     required: false,
   })
   @IsOptional()
   @IsString()
-  modifiedAt?: string;
+  modifiedAt?: number;
 
   @ApiProperty({
     description: '修改前數值',
