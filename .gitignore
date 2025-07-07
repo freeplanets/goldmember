@@ -5,7 +5,7 @@
 .build
 .serverless
 .env
-*.yml
+.env.local
 
 # Logs
 logs

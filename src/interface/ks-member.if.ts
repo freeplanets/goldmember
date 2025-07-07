@@ -9,4 +9,5 @@ export interface IKsMember {
     realUser:string;
     isChanged:boolean;
     appUser:string;
+    changeDate: string;
 }

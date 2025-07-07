@@ -1,0 +1,84 @@
+service: goldmember
+useDotenv: true
+
+provider:
+  name: aws
+  runtime: nodejs18.x
+  stage: ${opt:stage, 'dev'}
+  region: ap-southeast-1
+  memorySize: 256
+  timeout: 20
+  environment:
+    STAGE: ${self:provider.stage}
+    SYS_NAME: ${env:SYS_NAME}
+    API_KEY: ${env:API_KEY}
+    KS_API_KEY: ${env:KS_API_KEY}
+    MONGO_USER: ${env:dbuser}
+    MONGO_PASS: ${env:dbpass}
+    MONGO_HOST: ${env:dbhost}
+    MONGO_DB: ${env:dbase}
+    MONGO_PORT: ${env:dbport}
+    MONGO_REPLICA_SET: ${env:dbreplicaset}
+  #iam:
+  # role: 
+    # statements:
+    #   - Effect: Allow
+    #     Action:
+    #       - "ec2:CreateNetworkInterface"
+    #       - "ec2:DescribeNetworkInterfaces"
+    #       - "ec2:DetachNetworkInterface"
+    #       - "ec2:DeleteNetworkInterface"
+  vpc:
+    securityGroupIds:
+      - sg-095b2b1413b952e58
+    subnetIds:
+      - subnet-08419e89d2e5af3d9
+      - subnet-02012683035c7cd9c
+      - subnet-01de66359170766c4
+
+package:
+  individually: true
+  
+plugins:
+  - serverless-plugin-typescript
+  - serverless-offline
+custom:
+  serverless-offline:
+    httpPort: 3000
+    autostart: true
+  dotenv:
+    path: .env
+#  dynamodb:
+#    stages: "dev"
+#    start:
+#      port: 8000
+#      inMemory: true
+
+functions:
+  main:
+    handler: src/lambda.handler
+    events:
+      - http:
+          path: /{proxy+}
+          method: ANY
+          cors:
+            headers:
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token
+              - X-Amz-User-Agent
+              - WWW-AUTH
+      - http:
+          path: /
+          method: ANY
+          cors:
+            headers:
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token
+              - X-Amz-User-Agent
+              - WWW-AUTH

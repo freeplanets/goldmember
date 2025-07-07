@@ -77,6 +77,7 @@ export class KsService {
         if (dto.data.length === 0) return 0;
         const temp= await this.getAll('OG');
         // console.log("getAll:", temp);
+        // KsMember data from locale
         const list:Partial<IKsMember>[] = [];
         for (let i=0; i<temp.count; i++) {
             const item:Partial<IKsMember> = temp.data.pop();
@@ -104,31 +105,36 @@ export class KsService {
             const tmp = list[itm.no];
             if (tmp) {
                 console.log('change:',tmp.no,'<>' ,itm.no, '=>', tmp.name, itm.name);
-                if (tmp.appUser && (tmp.name !== itm.name || tmp.realUser !== itm.realUser)) {
+                if (tmp.name !== itm.name || tmp.realUser !== itm.realUser) {
                     itm.isChanged = true;
-                    upmbr.updateOne = {
-                        filter: {systemId: itm.no},
-                        update: {
-                            systemId: itm.no,
-                            membershipType: MEMBER_LEVEL.GENERAL_MEMBER,
-                            membershipLastModified: {
-                                modifiedBy: 'ks_member_update',
-                                modifiedAt: Date.now(),
-                                lastValue: '',
+                    itm.changeDate = new Date().toLocaleString('zh-TW');
+                    if (tmp.appUser) {
+                        console.log("itm:", itm);
+                        upmbr.updateOne = {
+                            filter: {systemId: itm.no},
+                            update: {
+                                systemId: itm.no,
+                                membershipType: MEMBER_LEVEL.GENERAL_MEMBER,
+                                membershipLastModified: {
+                                    modifiedBy: 'ks_member_update',
+                                    modifiedAt: Date.now(),
+                                    lastValue: '',
+                                }
                             }
                         }
+                        if (KS_MEMBER_NO_STYLE.test(itm.no)) {
+                            chgSH += 1;
+                        } else if (KS_FAMILY_NO_STYLE.test(itm.no)) {
+                            chgFA += 1;
+                        }
+                        upMbrs.push(upmbr);
                     }
-                    if (KS_MEMBER_NO_STYLE.test(itm.no)) {
-                        chgSH += 1;
-                    } else if (KS_FAMILY_NO_STYLE.test(itm.no)) {
-                        chgFA += 1;
-                    }
-                    upMbrs.push(upmbr);
                 }
                 cmd.updateOne = {
                     filter: { no: itm.no },
                     update: itm,
                 }
+                // console.log('cmd:', cmd);
             } else {
                 if (!checkpoint) {
                     console.log('do insert');

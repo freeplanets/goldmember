@@ -35,5 +35,8 @@ export class KsMember implements IKsMember {
 
     @Prop({default: ''})
     appUser:string;
+
+    @Prop()
+    changeDate: string;
 }
 export const KsMemberSchema = SchemaFactory.createForClass(KsMember);
