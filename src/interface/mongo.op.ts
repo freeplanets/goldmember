@@ -1,9 +1,12 @@
-export interface bulkWriteItem<T> {
+import { FilterQuery, UpdateQuery } from "mongoose";
+
+export interface IbulkWriteItem<T> {
     insertOne?: {
         document:T
     },
     updateOne?: {
-        filter: any;    // key of document like { key: "yourvalue" }
-        update: T;
+        filter: FilterQuery<T>;    // key of document like { key: "yourvalue" }
+        update: UpdateQuery<T>;
+        upsert?: boolean;
     }
 }

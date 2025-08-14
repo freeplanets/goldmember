@@ -37,11 +37,11 @@ async function bootstrapServer():Promise<Server> {
         .setTitle('GoldMember')
         .setDescription('All Member Api')
         .setVersion('0.01')
-        .addServer('/linkougolf')
+        .addServer('/linkougolf/ks')
         .build()
     }
     const document = SwaggerModule.createDocument(app, options)
-    SwaggerModule.setup('api', app, document);
+    SwaggerModule.setup('ks_api', app, document);
     app.use(eventContext());
     app.use(json({limit: '50mb'}));
     app.use(urlencoded({limit: '50mb', extended: true, parameterLimit: 50000}));
@@ -55,7 +55,7 @@ export const handler: Handler = async (event: any, context: Context): Promise<Re
     }
     // console.log(event);
     console.log('path:',event.requestContext.path,',','resourcePath:', event.requestContext.resourcePath, 'pathParameters:', event.pathParameters);
-    const path = event.requestContext.path.replace('/linkougolf', '');
+    const path = event.requestContext.path.replace('/linkougolf/ks', '');
     event.path = path;
     event.requestContext.path = path;
     //event.pathParameters =  { proxy: path };

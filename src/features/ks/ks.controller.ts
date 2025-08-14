@@ -45,7 +45,7 @@ export class KsController {
     }
 
     @Get('find/:id')
-    @ApiExcludeEndpoint(true)
+    //@ApiExcludeEndpoint(true)
     // @ApiParam({name: 'id', description: '資料主鍵'})
     // @ApiHeader({name: 'X-Api-Key', description: 'Api key'})
     async getOne(@Headers('X-Api-Key') apiKey:string, @Param('id') id:string) {
@@ -98,5 +98,11 @@ export class KsController {
         } else {
             return "";
         }
-    }    
+    }
+    
+    @Get('invitationcode')
+    @ApiExcludeEndpoint(true)
+    async getCode() {
+        return this.ksService.createCodeData();
+    }
 }

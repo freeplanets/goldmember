@@ -31,13 +31,15 @@
     "@nestjs/mongoose": "^11.0.1",
     "@nestjs/platform-express": "^10.0.0",
     "@nestjs/swagger": "^11.0.3",
+    "@types/uuid": "^10.0.0",
     "aws-serverless-express": "^3.4.0",
     "class-validator": "^0.14.1",
     "crypto-js": "^4.2.0",
     "mongoose": "^8.9.6",
     "reflect-metadata": "^0.1.13",
     "rxjs": "^7.8.1",
-    "swagger-ui-express": "^5.0.1"
+    "swagger-ui-express": "^5.0.1",
+    "uuid": "^11.1.0"
   },
   "devDependencies": {
     "@nestjs/cli": "^10.0.0",
